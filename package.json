@@ -1,5 +1,5 @@
 {
-	"name": "captcha-generator-alphanumeric",
+	"name": "@yoki/captcha-generator",
 	"version": "1.10.0",
 	"description": "An NPM package to generate alphanumeric captcha images",
 	"main": "dist/index.js",
