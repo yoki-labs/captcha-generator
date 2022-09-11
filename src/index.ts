@@ -1,5 +1,4 @@
 import * as Canvas from "canvas";
-import * as crypto from "crypto";
 
 Canvas.registerFont(require("path").resolve(__dirname, "../assets/Swift.ttf"), {
 	family: "swift",
@@ -32,7 +31,6 @@ const shuffleArray = (arr: number[]): number[] => {
 class Captcha {
 	private _canvas: Canvas.Canvas;
 	private _value: string;
-	private _color: string;
 
 	constructor(
 		_h: number = 120,

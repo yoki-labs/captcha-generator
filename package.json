@@ -1,6 +1,6 @@
 {
 	"name": "@yokilabs/captcha-generator",
-	"version": "1.0.0",
+	"version": "1.1.1",
 	"description": "An NPM package to generate alphanumeric captcha images",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
@@ -9,7 +9,8 @@
 		"compile": "tsc && gen-esm-wrapper . ./dist/index.mjs",
 		"test": "nyc mocha",
 		"coverage": "nyc report -r lcovonly",
-		"build": "npm run clean && npm run compile && npm test && npm run coverage"
+		"build": "npm run clean && npm run compile && npm test && npm run coverage",
+		"prepublishOnly": "npm run build"
 	},
 	"exports": {
 		".": {
