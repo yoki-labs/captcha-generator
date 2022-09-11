@@ -1,6 +1,6 @@
 {
-	"name": "@yoki/captcha-generator",
-	"version": "1.10.0",
+	"name": "@yokilabs/captcha-generator",
+	"version": "1.0.0",
 	"description": "An NPM package to generate alphanumeric captcha images",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",

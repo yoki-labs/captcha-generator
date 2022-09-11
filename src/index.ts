@@ -5,33 +5,12 @@ Canvas.registerFont(require("path").resolve(__dirname, "../assets/Swift.ttf"), {
 	family: "swift",
 });
 
-const alphanumeric = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".replace(
-	/[RGQIOVMI01]+/g,
-	"",
-); // excludes
-
-function randomize(seed: string, len?: number) {
-	const sourceArray = seed.split("");
-	let baselen = typeof len === "undefined" ? sourceArray.length : len;
-	const rnd = crypto.randomBytes(baselen);
-	const result = [];
-	let counter = 0,
-		characterIndex,
-		r;
-	while (baselen > 0) {
-		r = rnd[counter];
-		characterIndex = r % sourceArray.length;
-		result.push(sourceArray.splice(characterIndex, 1)[0]);
-		baselen--;
-		counter++;
-	}
-	return result.join("");
-}
-
-const randomText = (): string => {
-	const alphaseed = randomize(alphanumeric);
-	return randomize(alphaseed, 6);
-};
+const randomText = (): string =>
+	Math.random()
+		.toString(36)
+		.replace(/[^a-z]|[gkqr]+/gi, "")
+		.substring(0, 6)
+		.toUpperCase();
 
 const shuffleArray = (arr: number[]): number[] => {
 	let i: number = arr.length,
@@ -69,16 +48,6 @@ class Captcha {
 
 		// Initialize canvas
 		this._canvas = Canvas.createCanvas(400, _h);
-
-		// Initialize color
-		{
-			const c = 100; // darkness factor - ensure only visible colors
-			const r = 255 - c - Math.round(Math.random() * (255 - c));
-			const g = 255 - c - Math.round(Math.random() * (255 - c));
-			const b = 255 - c - Math.round(Math.random() * (255 - c));
-			this._color = `rgb(${r}, ${g}, ${b})`;
-		}
-
 		const ctx = this._canvas.getContext("2d");
 
 		// Set background color
@@ -93,11 +62,12 @@ class Captcha {
 		if (scaling > 1.3) scaling = 1.3;
 
 		// Set style for lines
-		ctx.strokeStyle = this._color;
+		ctx.strokeStyle = "#000";
 		ctx.lineWidth = 4 * scaling;
 		// Draw 10 lines
 		ctx.beginPath();
 		const coords: number[][] = [];
+
 		for (let i = 0; i < 4; i++) {
 			if (!coords[i]) coords[i] = [];
 			for (let j = 0; j < (_complexity?.lines ?? 5); j++)
@@ -120,7 +90,7 @@ class Captcha {
 		ctx.stroke();
 
 		// Set style for circles
-		ctx.fillStyle = this._color;
+		ctx.fillStyle = "#000";
 		ctx.lineWidth = 0;
 		// Draw circles
 		for (let i = 0; i < 200; i++) {
@@ -137,7 +107,7 @@ class Captcha {
 		}
 
 		// Set style for text
-		ctx.fillStyle = this._color;
+		ctx.fillStyle = "#000";
 		// Set position for text
 		ctx.textAlign = "left";
 		ctx.textBaseline = "middle";
